@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class Grid1D:
@@ -49,12 +50,22 @@ class Grid1D:
 
 # --- END OF CLASS Grid1D ---
 
+# -- BEGIN TESTING/DEBUGGING SECTION ---
+
 grid1 = Grid1D(0, 1, 10, grid_type='cell edge')
 grid2 = Grid1D(0, 1, 10, grid_type='cell centered')
 grid3 = Grid1D(0, 1, 10, grid_type='cell edge gp')
 grid4 = Grid1D(0, 1, 10, grid_type='cell centered gp')
 
-print(grid1.getPoints())
-print(grid2.getPoints())
-print(grid3.getPoints())
-print(grid4.getPoints())
+x1 = grid1.getPoints()
+x2 = grid2.getPoints()
+x3 = grid3.getPoints()
+x4 = grid4.getPoints()
+
+y1 = x1**2
+y2 = x2**2
+y3 = x3**2
+y4 = x4**2
+
+plt.plot(x1, y1, 'r', x2, y2, 'b', x3, y3, 'g', x4, y4, 'y')
+plt.show()
