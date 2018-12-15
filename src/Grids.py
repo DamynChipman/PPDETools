@@ -1,15 +1,24 @@
 # ========== Grids.py ==========
 import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
 
 class Grid1D:
+    """
+    class - Grid1D
+
+    A one-dimmensional finite grid. Offers varying types of grids, including
+    cell-edge and cell-centered, both with options for grid points. Points are
+    stored in an NumPy array object. Includes iterator functionality for ease
+    in accessing or changing grip points via for loop.
+    """
 
     def __init__(self, lBound, rBound, NPTS, grid_type='cell edge'):
         self._lBound = lBound
         self._rBound = rBound
         self._NPTS = NPTS
-        self._index = 0
+        self._index = -1
 
         if (grid_type == 'cell edge'):
             self._delX = (self._rBound - self._lBound)/(self._NPTS - 1)
@@ -61,8 +70,43 @@ class Grid1D:
 
 # --- END OF CLASS Grid1D ---
 
-# -- BEGIN TESTING/DEBUGGING SECTION ---
+class Grid2D:
 
+    """
+
+    """
+
+    def __init__(self, xBounds, yBounds, NPTSX, NPTSY, grid_type='cell edge'):
+        self._xLow = xBounds[0]
+        self._xUp = xBounds[1]
+        self._yLow = yBounds[0]
+        self._yUp = yBounds[1]
+        self._NPTSX = NPTSX
+        self._NPTSY = NPTSY
+        self._XGrid = Grid1D(self._xLow, self._xUp, self._NPTSX,
+                             grid_type=grid_type)
+        self._YGrid = Grid1D(self._yLow, self._yUp, self._NPTSY,
+                             grid_type=grid_type)
+        self._XPts, self._YPts = np.meshgrid(self._XGrid.getPoints(),
+                                             self._YGrid.getPoints())
+
+    def getX(self):
+        return self._XPts
+
+    def getY(self):
+        return self._YPts
+
+    def getNPTSX(self):
+        return self._NPTSX
+
+    def getNPTSY(self):
+        return self._NPTSY
+
+
+# --- END OF CLASS Grid2D ---
+
+
+# -- BEGIN TESTING/DEBUGGING SECTION ---
 # Grid spacing visualization
 grid1 = Grid1D(0, 1, 10, grid_type='cell edge')
 grid2 = Grid1D(0, 1, 10, grid_type='cell centered')
@@ -82,6 +126,7 @@ y2 = np.zeros(10) + 2
 y3 = np.zeros(10) + 3
 y4 = np.zeros(10) + 4
 
+fig1 = plt.figure(1)
 plt.plot(x1, y1, 'r.', x2, y2, 'b.', x3, y3, 'g.', x4, y4, 'y.')
 plt.legend(['Cell-Edge',
             'Cell-Centered',
@@ -91,7 +136,20 @@ plt.legend(['Cell-Edge',
            bbox_to_anchor=(.2, 1.00),
            borderaxespad=0.5,
            ncol=2)
-plt.show()
+
+# 3D plotting with Grid2D
+grid5 = Grid2D([-1, 1], [2, 5], 10, 20, grid_type='cell centered gp')
+X = grid5.getX()
+Y = grid5.getY()
+Z = np.sin(X) + np.cos(Y)
+
+fig2 = plt.figure(2)
+ax = fig2.add_subplot(111, projection='3d')
+ax.plot_surface(X, Y, Z)
+
+plt.show(fig1)
+plt.show(fig2)
+
 
 # --- END OF TESTING/DEBUGGING SECTION ---
 
