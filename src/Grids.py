@@ -9,6 +9,7 @@ class Grid1D:
         self._lBound = lBound
         self._rBound = rBound
         self._NPTS = NPTS
+        self._index = 0
 
         if (grid_type == 'cell edge'):
             self._delX = (self._rBound - self._lBound)/(self._NPTS - 1)
@@ -32,6 +33,15 @@ class Grid1D:
                                     num=self._NPTS)
         else:
             print("ERROR IN Grid1D: INVALID grid_type NAME")
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if (self._index == self._NPTS-1):
+            raise StopIteration
+        self._index = self._index + 1
+        return self._pts[self._index]
 
     def getRBound(self):
         return self._rBound
@@ -59,6 +69,9 @@ grid2 = Grid1D(0, 1, 10, grid_type='cell centered')
 grid3 = Grid1D(0, 1, 10, grid_type='cell edge gp')
 grid4 = Grid1D(0, 1, 10, grid_type='cell centered gp')
 
+for point in grid1:
+    print(point)
+
 x1 = grid1.getPoints()
 x2 = grid2.getPoints()
 x3 = grid3.getPoints()
@@ -79,6 +92,7 @@ plt.legend(['Cell-Edge',
            borderaxespad=0.5,
            ncol=2)
 plt.show()
+
 # --- END OF TESTING/DEBUGGING SECTION ---
 
 # ========== END OF Grids.py ==========
