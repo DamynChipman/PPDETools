@@ -1,3 +1,4 @@
+# ========== Grids.py ==========
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -52,6 +53,7 @@ class Grid1D:
 
 # -- BEGIN TESTING/DEBUGGING SECTION ---
 
+# Grid spacing visualization
 grid1 = Grid1D(0, 1, 10, grid_type='cell edge')
 grid2 = Grid1D(0, 1, 10, grid_type='cell centered')
 grid3 = Grid1D(0, 1, 10, grid_type='cell edge gp')
@@ -62,10 +64,21 @@ x2 = grid2.getPoints()
 x3 = grid3.getPoints()
 x4 = grid4.getPoints()
 
-y1 = x1**2
-y2 = x2**2
-y3 = x3**2
-y4 = x4**2
+y1 = np.zeros(10) + 1
+y2 = np.zeros(10) + 2
+y3 = np.zeros(10) + 3
+y4 = np.zeros(10) + 4
 
-plt.plot(x1, y1, 'r', x2, y2, 'b', x3, y3, 'g', x4, y4, 'y')
+plt.plot(x1, y1, 'r.', x2, y2, 'b.', x3, y3, 'g.', x4, y4, 'y.')
+plt.legend(['Cell-Edge',
+            'Cell-Centered',
+            'Cell-Edge w/ GP',
+            'Cell-Centered w/ GP'],
+           loc='lower left',
+           bbox_to_anchor=(.2, 1.00),
+           borderaxespad=0.5,
+           ncol=2)
 plt.show()
+# --- END OF TESTING/DEBUGGING SECTION ---
+
+# ========== END OF Grids.py ==========
