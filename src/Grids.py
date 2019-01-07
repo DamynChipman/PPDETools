@@ -1,7 +1,7 @@
 # ========== Grids.py ==========
+
+# ===== Imports =====
 import numpy as np
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
 
 
 class Grid1D:
@@ -11,7 +11,7 @@ class Grid1D:
     A one-dimmensional finite grid. Offers varying types of grids, including
     cell-edge and cell-centered, both with options for grid points. Points are
     stored in an NumPy array object. Includes iterator functionality for ease
-    in accessing or changing grip points via for loop.
+    in accessing or changing grid points via a for loop.
     """
 
     def __init__(self, lBound, rBound, NPTS, grid_type='cell edge'):
@@ -44,14 +44,28 @@ class Grid1D:
             print("ERROR IN Grid1D: INVALID grid_type NAME")
 
     def __iter__(self):
+        """
+        Function: __iter__
+
+        Iterator function for Grid1D
+        """
+
         return self
 
     def __next__(self):
+        """
+        Function: __next__
+
+        Allows for Grid1D to be iteratored through. Iterates through the grid
+        points within the grid, starting from the left bound and iterating to
+        the right end.
+        """
         if (self._index == self._NPTS-1):
             raise StopIteration
         self._index = self._index + 1
         return self._pts[self._index]
 
+    # ----- Accessor Functions -----
     def getRBound(self):
         return self._rBound
 
@@ -70,10 +84,13 @@ class Grid1D:
 
 # ===== END OF CLASS Grid1D =====
 
+
 class Grid2D:
-
     """
+    class - Grid2D
 
+    A two-dimmensional finite grid. Employs NumPy's meshgrid to create a two
+    dimmensional grid. Creates and stores Grid1D objects for the X and Y grids.
     """
 
     def __init__(self, xBounds, yBounds, NPTSX, NPTSY, grid_type='cell edge'):
@@ -90,6 +107,7 @@ class Grid2D:
         self._XPts, self._YPts = np.meshgrid(self._XGrid.getPoints(),
                                              self._YGrid.getPoints())
 
+    # ----- Accessor Functions -----
     def getX(self):
         return self._XPts
 
@@ -104,4 +122,6 @@ class Grid2D:
 
 
 # ===== END OF CLASS Grid2D =====
+
+
 # ========== END OF Grids.py ==========

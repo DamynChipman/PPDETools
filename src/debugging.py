@@ -1,13 +1,17 @@
+# ========== debugging.py ==========
+
 # ===== Imports =====
 import Grids
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
 
 
-# -- BEGIN TESTING/DEBUGGING SECTION ---
 # Grid spacing visualization
-grid1 = Grid1D(0, 1, 10, grid_type='cell edge')
-grid2 = Grid1D(0, 1, 10, grid_type='cell centered')
-grid3 = Grid1D(0, 1, 10, grid_type='cell edge gp')
-grid4 = Grid1D(0, 1, 10, grid_type='cell centered gp')
+grid1 = Grids.Grid1D(0, 1, 10, grid_type='cell edge')
+grid2 = Grids.Grid1D(0, 1, 10, grid_type='cell centered')
+grid3 = Grids.Grid1D(0, 1, 10, grid_type='cell edge gp')
+grid4 = Grids.Grid1D(0, 1, 10, grid_type='cell centered gp')
 
 for point in grid1:
     print(point)
@@ -34,7 +38,7 @@ plt.legend(['Cell-Edge',
            ncol=2)
 
 # 3D plotting with Grid2D
-grid5 = Grid2D([-1, 1], [2, 5], 10, 20, grid_type='cell centered gp')
+grid5 = Grids.Grid2D([-1, 1], [2, 5], 10, 20, grid_type='cell centered gp')
 X = grid5.getX()
 Y = grid5.getY()
 Z = np.sin(X) + np.cos(Y)
@@ -47,4 +51,4 @@ plt.show(fig1)
 plt.show(fig2)
 
 
-# --- END OF TESTING/DEBUGGING SECTION ---
+# ========== END OF debugging.py ==========
