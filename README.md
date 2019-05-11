@@ -14,6 +14,6 @@ Contents:
    : Grids.py - Grid classes
    : debugging.py - Debugging/example file
  : pics
-   : grid_visual - Visualization of various grid types
+   : grid_visual.png - Visualization of various grid types
 
 WORK IN PROGRESS
